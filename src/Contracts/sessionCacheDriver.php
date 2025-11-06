@@ -22,7 +22,7 @@ class sessionCacheDriver extends CacheInterface
      * @param string $key
      * @param mixed $value
      * @param int $seconds if 0 then unlimited
-     * @return void
+     * @return bool
      */
     public function set($key, $value, $seconds = 0)
     {
@@ -31,7 +31,7 @@ class sessionCacheDriver extends CacheInterface
         } else {
             $die_after = false;
         }
-        $this->cache_container->set($key, array(
+        return $this->cache_container->set($key, array(
             'value' => $value,
             'die_after' => $die_after
         ));
@@ -62,11 +62,11 @@ class sessionCacheDriver extends CacheInterface
 
     /**
      * @param string $key
-     * @return void
+     * @return bool
      */
     public function delete($key)
     {
-        $this->cache_container->delete($key);
+        return $this->cache_container->delete($key);
     }
 
     /**
@@ -74,6 +74,6 @@ class sessionCacheDriver extends CacheInterface
      */
     public function clearCache()
     {
-        $this->cache_container->clear();
+        return $this->cache_container->clear();
     }
 }

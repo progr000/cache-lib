@@ -40,7 +40,7 @@ class fileCacheDriver extends CacheInterface
      * @param string $key
      * @param mixed $value
      * @param int $seconds if 0 then unlimited
-     * @return void
+     * @return bool
      */
     public function set($key, $value, $seconds = 0)
     {
@@ -51,11 +51,13 @@ class fileCacheDriver extends CacheInterface
         } else {
             $die_after = false;
         }
-        file_put_contents($file, serialize(array(
+        $ret = file_put_contents($file, serialize(array(
             'value' => $value,
             'die_after' => $die_after
         )));
         chmod($file, 0600);
+
+        return $ret;
     }
 
     /**
@@ -86,21 +88,26 @@ class fileCacheDriver extends CacheInterface
 
     /**
      * @param string $key
-     * @return void
+     * @return bool
      */
     public function delete($key)
     {
-        @unlink($this->filenameByKey($key));
+        return @unlink($this->filenameByKey($key));
     }
 
     /**
-     * @return void
+     * @return bool
      */
     public function clearCache()
     {
         $files = array_diff(scandir($this->cache_container), array('.', '..'));
+        $ret = true;
         foreach ($files as $file) {
-            !is_dir("{$this->cache_container}/{$file}") && @unlink("{$this->cache_container}/{$file}");
+            if (!is_dir("{$this->cache_container}/{$file}")) {
+                $ret = $ret && @unlink("{$this->cache_container}/{$file}");
+            }
         }
+
+        return $ret;
     }
 }

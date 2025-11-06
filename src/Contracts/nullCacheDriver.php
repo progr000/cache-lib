@@ -17,10 +17,11 @@ class nullCacheDriver extends CacheInterface
      * @param string $key
      * @param mixed $value
      * @param int $seconds if 0 then unlimited
-     * @return void
+     * @return bool
      */
     public function set($key, $value, $seconds = 0)
     {
+        return true;
     }
 
     /**
@@ -35,16 +36,18 @@ class nullCacheDriver extends CacheInterface
 
     /**
      * @param string $key
-     * @return void
+     * @return bool
      */
     public function delete($key)
     {
+        return true;
     }
 
     /**
-     * @return void
+     * @return bool
      */
     public function clearCache()
     {
+        return true;
     }
 }

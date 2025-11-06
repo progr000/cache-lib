@@ -53,11 +53,11 @@ class memcachedCacheDriver extends CacheInterface
     }
 
     /**
-     * @return void
+     * @return bool
      */
     public function clearCache()
     {
-        $this->cache_container->flush();
+        return $this->cache_container->flush();
     }
 
     /**

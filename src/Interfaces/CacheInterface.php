@@ -13,7 +13,7 @@ abstract class CacheInterface
      * @param string $key
      * @param mixed $value
      * @param int $seconds if 0 then unlimited
-     * @return void
+     * @return bool
      */
     abstract public function set($key, $value, $seconds = 0);
 
@@ -26,12 +26,12 @@ abstract class CacheInterface
 
     /**
      * @param string $key
-     * @return void
+     * @return bool
      */
     abstract public function delete($key);
 
     /**
-     * @return void
+     * @return bool
      */
     abstract public function clearCache();
 

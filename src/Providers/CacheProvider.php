@@ -14,7 +14,7 @@ class CacheProvider
     {
         $config = ConfigDriver::getInstance("");
         $driver = $config->get('caching->driver', 'session');
-        $className = "Core\\Contracts\\CacheDrivers\\{$driver}CacheDriver";
+        $className = "Maksym\\Cache\\Contracts\\{$driver}CacheDriver";
         if (class_exists($className)) {
             $cacheDriverCredentials = $config->get("caching->{$driver}", array());
             return new $className($cacheDriverCredentials);
