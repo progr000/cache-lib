@@ -17,7 +17,9 @@ class fileCacheDriver extends CacheInterface
     public function __construct(array $conf)
     {
         $this->cache_container = $conf['store_dir'];
-        @mkdir($this->cache_container, 0700, true);
+        if (!file_exists($this->cache_container)) {
+            @mkdir($this->cache_container, 0700, true);
+        }
         @chmod($this->cache_container, 0700);
         if (!file_exists($this->cache_container) || !is_dir($this->cache_container)) {
             throw new ConfigException('Directory for cache-driver not exist');
@@ -45,7 +47,9 @@ class fileCacheDriver extends CacheInterface
     public function set($key, $value, $seconds = 0)
     {
         $file = $this->filenameByKey($key);
-        @unlink($file);
+        if (file_exists($file)) {
+            @unlink($file);
+        }
         if ($seconds) {
             $die_after = time() + $seconds;
         } else {
