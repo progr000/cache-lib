@@ -16,7 +16,7 @@
   "require": {
     "php": ">=5.3.0",
     "ext-json": "*",
-    "maksym/config-lib": "dev-dev",
+    "maksym/config-lib": ">=1.0.1",
     "maksym/sess-cook-lib": ">=1.0"
   },
   "require-dev": {
