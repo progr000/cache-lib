@@ -2,21 +2,25 @@
 
 namespace Maksym\Cache\Contracts;
 
+use Exception;
 use Maksym\Cache\Interfaces\CacheInterface;
-use \Memcached;
 
 class memcachedCacheDriver extends CacheInterface
 {
-    /** @var Memcached */
+    /** @var \Memcached */
     private $cache_container;
 
     /**
      * @param array $conf
+     * @throws Exception
      */
     public function __construct(array $conf)
     {
         $servers_count = 0;
-        $this->cache_container = new Memcached();
+        if (!class_exists('\Memcached')) {
+            throw new Exception("ext-memcached for php is not installed.");
+        }
+        $this->cache_container = new \Memcached();
         foreach ($conf as $connection) {
             if (isset($connection['server'], $connection['port'])) {
                 $this->cache_container->addServer($connection['server'], $connection['port']);
