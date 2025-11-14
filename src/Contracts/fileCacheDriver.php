@@ -16,6 +16,9 @@ class fileCacheDriver extends CacheInterface
      */
     public function __construct(array $conf)
     {
+        if (!isset($conf['store_dir'])) {
+            $conf['store_dir'] = sys_get_temp_dir() . DIRECTORY_SEPARATOR . "cache_" . uniqid();
+        }
         $this->cache_container = $conf['store_dir'];
         if (!file_exists($this->cache_container)) {
             @mkdir($this->cache_container, 0700, true);

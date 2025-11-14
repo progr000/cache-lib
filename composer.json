@@ -16,12 +16,14 @@
   "require": {
     "php": ">=5.3.0",
     "ext-json": "*",
-    "ext-memcached": "*",
-    "maksym/config-lib": ">=1.0",
+    "maksym/config-lib": "dev-dev",
     "maksym/sess-cook-lib": ">=1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "@stable"
+  },
+  "suggest": {
+    "ext-memcached": "Allows to use memcached driver for caching"
   },
   "autoload": {
     "psr-4": {

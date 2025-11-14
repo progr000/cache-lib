@@ -15,10 +15,15 @@ class memcachedCacheDriver extends CacheInterface
      */
     public function __construct(array $conf)
     {
+        $servers_count = 0;
         $this->cache_container = new Memcached();
         foreach ($conf as $connection) {
-            $this->cache_container->addServer($connection['server'], $connection['port']);
+            if (isset($connection['server'], $connection['port'])) {
+                $this->cache_container->addServer($connection['server'], $connection['port']);
+                $servers_count++;
+            }
         }
+        //if (!$servers_count) { /* ??? */ }
     }
 
     /**
