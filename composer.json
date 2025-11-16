@@ -20,7 +20,8 @@
     "maksym/sess-cook-lib": "@stable"
   },
   "require-dev": {
-    "phpunit/phpunit": "@stable"
+    "phpunit/phpunit": "@stable",
+    "maksym/dumper": "@stable"
   },
   "suggest": {
     "ext-memcached": "Allows to use memcached driver for caching"
